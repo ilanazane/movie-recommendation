@@ -1,4 +1,6 @@
 pandas 
-sklearn
+scikit-learn
 numpy
 joblib
+fastapi 
+uvicorn

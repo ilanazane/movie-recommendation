@@ -1,12 +1,17 @@
 from fastapi import FastAPI
 import joblib
 import pandas as pd
-from data_processing import load_data
+
+# from data_processing import load_data
+from src.data_processing import load_data
 
 # load trained model and data
-model = joblib.load("movie_recommender.pkl")
+model = joblib.load("movie_model.pkl")
 
-ratings, movies = load_data("ml-latest-small/ratings.csv", "ml-latest-small/movies.csv")
+
+ratings, movies = load_data(
+    "data/ml-latest-small/ratings.csv", "data/ml-latest-small/movies.csv"
+)
 
 print("model loaded")
 
@@ -25,7 +30,6 @@ def recommend(user_id: int, n: int = 5):
     # find all movies that user has rated
     user_movies = ratings[ratings["userId"] == user_id]["movieId"].values
     unseen_movies = [m for m in all_movies if m not in user_movies]
-    print("hello")
 
     # predict ratings for unseen movies
     predictions = model.predict(

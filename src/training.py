@@ -4,6 +4,7 @@ from sklearn.model_selection import GridSearchCV
 from data_processing import load_data
 import joblib
 
+# def train(train_config):
 
 # Process data
 train_data, test_data = load_data(
@@ -36,7 +37,7 @@ grid_search = GridSearchCV(
 )
 grid_search.fit(x_train, y_train)
 
-print("fniished trainiings")
+print("finished trainings")
 
 
 # evaluate model
