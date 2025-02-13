@@ -8,11 +8,9 @@ from src.data_processing import load_data
 # load trained model and data
 model = joblib.load("movie_model.pkl")
 
-
 ratings, movies = load_data(
     "data/ml-latest-small/ratings.csv", "data/ml-latest-small/movies.csv"
 )
-
 print("model loaded")
 
 
@@ -26,6 +24,13 @@ def home():
 
 @app.get("/recommend/")
 def recommend(user_id: int, n: int = 5):
+    """
+    recommend specified user their top n movies
+
+    :param user_id: a user in the database
+    :param n: number of returned recommendations
+    :returns: dictionary of top n recommendations for the user
+    """
     all_movies = ratings["movieId"].unique()
     # find all movies that user has rated
     user_movies = ratings[ratings["userId"] == user_id]["movieId"].values
